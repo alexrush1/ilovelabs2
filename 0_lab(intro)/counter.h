@@ -10,6 +10,7 @@
 #include <map>
 #include <vector>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
@@ -30,7 +31,7 @@ public:
         in.open(infile);
         while (getline(in, str)) {
             int str_length = str.length();
-            for (int i = 0; i < str_length; i++) {
+            for (int i = 0; i <= str_length; i++) {
                 if (isalpha(str[i]) || isdigit(str[i])) {
                     word += str[i];
                 } else {
@@ -39,9 +40,6 @@ public:
                     }
                 }
             }
-        }
-        if (word != "") {
-            push_to_map(mp, word);
         }
         for (pair<string, int> it : mp) {
             list.emplace_back(it.second, it.first);
