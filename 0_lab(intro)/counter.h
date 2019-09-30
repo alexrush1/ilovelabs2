@@ -17,18 +17,29 @@ using namespace std;
 class counter {
     map<string, int> mp;
     int count = 0;
-    vector<pair<int, string>> list;
-public:
+    void print_prepare(    vector<pair<int, string>> &list) {
+        for (pair<string, int> it : mp) {
+            list.emplace_back(it.second, it.first);
+        }
+
+        sort(list.begin(), list.end());
+        reverse(list.begin(), list.end());
+    }
     void push_to_map(map<string, int> &mp, string &word) {
         count++;
         mp[word]++;
-        word.clear();
     }
+
+public:
 
     void wordcount(char *infile) {
         string str, word;
         ifstream in;
         in.open(infile);
+        if (!in) {
+            throw 1;
+            //throw std::exception();
+        }
         while (getline(in, str)) {
             int str_length = str.length();
             for (int i = 0; i <= str_length; i++) {
@@ -37,21 +48,21 @@ public:
                 } else {
                     if (word != "") {
                         push_to_map(mp, word);
+                        word.clear();
                     }
                 }
             }
         }
-        for (pair<string, int> it : mp) {
-            list.emplace_back(it.second, it.first);
-        }
         in.close();
     }
 
+
     void count_print(char *outfile) {
+        vector<pair<int, string>> list;
+
+        print_prepare(list);
         ofstream out;
         out.open(outfile);
-        sort(list.begin(), list.end());
-        reverse(list.begin(), list.end());
         for (pair<int,string> i: list) {
             out << i.second + ";" + to_string(i.first) + ";" + to_string(i.first/ (float)count * 100) + "\n";
         }

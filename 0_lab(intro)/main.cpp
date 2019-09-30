@@ -1,15 +1,28 @@
 #include <fstream>
 #include <string>
 #include <map>
+#include <iostream>
+
 #include "counter.h"
 
 using namespace std;
-counter table;
 int main(int argc, char** argv) {
-	char *infile, *outfile;
+    counter table;
+
+    char *infile, *outfile;
 	infile = argv[argc - 2];
 	outfile = argv[argc - 1];
-	table.wordcount(infile);
-	table.count_print(outfile);
+    try {
+        table.wordcount(infile);
+        table.count_print(outfile);
+
+    } catch (std::exception & ex)
+    {
+        cout << "Error: " << ex.what();
+    }catch (int &i) {
+        cout << "Error: " << i;
+
+    }
+
 	return 0;
 }
