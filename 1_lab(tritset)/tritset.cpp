@@ -6,8 +6,8 @@
 #include "trit.h"
 #include <iostream>
 
-
-tritset::tritset(const int set_value) { //Конструктор
+//Конструктор для класса tritset
+tritset::tritset(const int set_value) { 
     if (set_value < 0)
 		throw std::invalid_argument("parameter set_value cannot be less than 0");
 	size_trits = set_value;
@@ -15,7 +15,8 @@ tritset::tritset(const int set_value) { //Конструктор
 	set.resize(size_chars);
 }
 
-tritset operator&(tritset& left, tritset& right) { //оператор "и"
+//Оператор "и" для сета
+tritset operator&(tritset& left, tritset& right) { 
 	size_t size = (left.size_trits >= right.size_trits) ? left.size_trits : right.size_trits;
 	tritset result(size);
 	for (size_t i = 0; i < size; i++) {
@@ -24,7 +25,8 @@ tritset operator&(tritset& left, tritset& right) { //оператор "и"
 	return result;
 }
 
-tritset operator|(tritset& left, tritset& right) { //оператор "или"
+//Оператор "или" для сета
+tritset operator|(tritset& left, tritset& right) { 
 	size_t size = (left.size_trits >= right.size_trits) ? left.size_trits : right.size_trits;
 	tritset result(size);
 	for (size_t i = 0; i < size; i++) {
@@ -33,7 +35,8 @@ tritset operator|(tritset& left, tritset& right) { //оператор "или"
 	return result;
 }
 
-tritset operator!(const tritset& a) { //оператор "не"
+//оператор "не" для сета
+tritset operator!(const tritset& a) { 
 	tritset result(a.size_trits);
 	for (int i = 0; i < a.size_trits; i++) {
 		result[i] = !a[i];
@@ -41,7 +44,8 @@ tritset operator!(const tritset& a) { //оператор "не"
 	return result;
 }
 
-trit tritset::operator[](int position) const { //оператор []
+//оператор [] для сета
+trit tritset::operator[](int position) const { 
 	if (position < 0)
 		throw std::invalid_argument("position cannot be less than zero");
 	if (position >= size_trits)
@@ -54,7 +58,8 @@ trit tritset::getTrit(){
 	return trit();
 }
 
-void tritset::shrink(){ //уменьшение размера до последнего не "unknown" трита
+//Уменьшение размера сета до последнего не "unknown" трита
+void tritset::shrink(){ 
 	size_t length = this->t_length();
 	if (length != 0) {
 		size_chars = (length - 1) / 4 + 1;
@@ -76,7 +81,8 @@ int tritset::capacity() {
 	return size_chars;
 }
 
-size_t tritset::cardinality(trit value){ //подсчёт определенного значения в set
+//Подсчёт количества тритов со значением value в сете
+size_t tritset::cardinality(trit value){ 
 	size_t count = 0;
 	for (int i = 0; i < size_trits; i++) {
 		if ((*this)[i] == value)
@@ -85,6 +91,7 @@ size_t tritset::cardinality(trit value){ //подсчёт определенно
 	return count;
 }
 
+//Подсчёт количества тритов для каждого возможного значения
 std::unordered_map<trit, int> tritset::cardinality(){
 	std::unordered_map<trit, int> count;
 	for (int i = 0; i < size_trits; i++) {
@@ -100,7 +107,8 @@ std::unordered_map<trit, int> tritset::cardinality(){
 	return count;
 }
 
-void tritset::trim(size_t lastIndex){ //удаление содержимого от lastIndex и дальше
+//Удаление содержимого в сете от lastIndex и дальше
+void tritset::trim(size_t lastIndex){ 
 	if ((lastIndex < 0)||(lastIndex > size_trits)) 
 		throw std::invalid_argument("lastIndex error");
 	for (int i = lastIndex; i <= size_trits; i++) {
@@ -108,7 +116,8 @@ void tritset::trim(size_t lastIndex){ //удаление содержимого 
 	}
 }
 
-size_t tritset::t_length(){ //длина set
+//Длина сета
+size_t tritset::t_length(){ 
 	for (size_t i = this->size_trits; i > 0; --i) {
 		if ((*this)[i - 1] != trit::Unknown)
 			return i;
@@ -116,6 +125,7 @@ size_t tritset::t_length(){ //длина set
 	return 0;
 }
 
+//Позволяет объявлять сет через {}
 tritset::tritset(const std::initializer_list<trit>& list) : tritset(list.size()) {
 	size_t i = 0;
 	for (const auto& element : list) {
@@ -124,28 +134,33 @@ tritset::tritset(const std::initializer_list<trit>& list) : tritset(list.size())
 	}
 }
 
-tritset::reference tritset::operator[](int position) { //оператор индексации
+//Оператор индексации
+tritset::reference tritset::operator[](int position) { 
 	if (position < 0)
 		throw std::invalid_argument("position cannot be less than zero");
 	return tritset::reference(*this, position);
 }
 
-trit tritset::reference::getTrit() const{ //получаем значение трита
+//Получаем значение трита
+trit tritset::reference::getTrit() const{ 
 	if (pTritset->size_trits <= pos)
 		return trit::Unknown;
 	return (trit)((pTritset->set[pos / 4] & (mask << (6 - 2 * (pos % 4))))
 		>> (6 - 2 * (pos % 4)));
 }
 
-tritset::reference::reference(tritset& t_set, size_t position) : pos(position){ //конструктор reference
+//Конструктор класса reference
+tritset::reference::reference(tritset& t_set, size_t position) : pos(position){ 
 	this->pTritset = &t_set;
 }
 
-tritset::reference::operator trit() const{ //приведение к типу trit
+//Приведение типов
+tritset::reference::operator trit() const{ 
 	return this->getTrit();
 }
 
-tritset::reference& tritset::reference::operator=(trit x) { //присваивание значению
+//Присваивание значению
+tritset::reference& tritset::reference::operator=(trit x) { 
 	if (pTritset->size_trits <= pos) {
 		if (x == trit::Unknown) {
 			return *this;
