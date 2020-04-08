@@ -1,0 +1,58 @@
+апр. 08, 2020 11:16:21 PM Java.Calculator.Main main
+FINE: Logging properties file successfully opened!
+апр. 08, 2020 11:16:22 PM Java.Calculator.Main main
+INFO: Creating calculator
+апр. 08, 2020 11:16:22 PM Java.Calculator.Calculator calculate
+FINE: Enter calculator.calculate(null)
+апр. 08, 2020 11:16:22 PM Java.Calculator.Calculator createScanner
+FINE: Create reader from System.in
+апр. 08, 2020 11:16:26 PM Java.Calculator.Calculator calculate
+FINE: Trying to create class for command PUSH
+апр. 08, 2020 11:16:26 PM Java.Calculator.Calculator calculate
+FINE: Successfully created class Java.Calculator.Operations.Push
+апр. 08, 2020 11:16:26 PM Java.Calculator.Calculator calculate
+FINE: Enter calculation of Java.Calculator.Operations.Push
+апр. 08, 2020 11:16:26 PM Java.Calculator.Operations.Push calculate
+FINE: Push command successfully completed!
+апр. 08, 2020 11:16:28 PM Java.Calculator.Calculator calculate
+FINE: Trying to create class for command PUSH
+апр. 08, 2020 11:16:28 PM Java.Calculator.Calculator calculate
+FINE: Successfully created class Java.Calculator.Operations.Push
+апр. 08, 2020 11:16:28 PM Java.Calculator.Calculator calculate
+FINE: Enter calculation of Java.Calculator.Operations.Push
+апр. 08, 2020 11:16:28 PM Java.Calculator.Operations.Push calculate
+FINE: Push command successfully completed!
+апр. 08, 2020 11:16:30 PM Java.Calculator.Calculator calculate
+FINE: Trying to create class for command +
+апр. 08, 2020 11:16:30 PM Java.Calculator.Calculator calculate
+FINE: Successfully created class Java.Calculator.Operations.Add
+апр. 08, 2020 11:16:30 PM Java.Calculator.Calculator calculate
+FINE: Enter calculation of Java.Calculator.Operations.Add
+апр. 08, 2020 11:16:30 PM Java.Calculator.Calculator calculate
+WARNING: Operation exception
+Java.Calculator.Exceptions.ArgsException: add: extra argument noticed
+	at Java.Calculator.Operations.Add.exceptionChecker(Add.java:20)
+	at Java.Calculator.Operations.Add.calculate(Add.java:26)
+	at Java.Calculator.Calculator.calculate(Calculator.java:45)
+	at Java.Calculator.Main.main(Main.java:33)
+
+апр. 08, 2020 11:16:35 PM Java.Calculator.Calculator calculate
+FINE: Trying to create class for command +
+апр. 08, 2020 11:16:35 PM Java.Calculator.Calculator calculate
+FINE: Successfully created class Java.Calculator.Operations.Add
+апр. 08, 2020 11:16:35 PM Java.Calculator.Calculator calculate
+FINE: Enter calculation of Java.Calculator.Operations.Add
+апр. 08, 2020 11:16:35 PM Java.Calculator.Operations.Add calculate
+FINE: Plus command successfully completed!
+апр. 08, 2020 11:16:41 PM Java.Calculator.Calculator calculate
+FINE: Trying to create class for command PRINT
+апр. 08, 2020 11:16:41 PM Java.Calculator.Calculator calculate
+FINE: Successfully created class Java.Calculator.Operations.Print
+апр. 08, 2020 11:16:41 PM Java.Calculator.Calculator calculate
+FINE: Enter calculation of Java.Calculator.Operations.Print
+апр. 08, 2020 11:16:41 PM Java.Calculator.Operations.Print calculate
+FINE: Print command successfully completed!
+апр. 08, 2020 11:16:43 PM Java.Calculator.Calculator calculate
+FINE: Reached "EXIT" command.
+апр. 08, 2020 11:16:43 PM Java.Calculator.Main main
+FINEST: Successfully calculated!
