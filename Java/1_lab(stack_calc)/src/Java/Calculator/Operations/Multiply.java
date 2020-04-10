@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class Multiply extends Operations{
     public static Logger log = Logger.getLogger(Add.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException, ArgsException {
         if (context.getStackSize() < 2){
             throw new StackException("multiply: not enough items on the stack");

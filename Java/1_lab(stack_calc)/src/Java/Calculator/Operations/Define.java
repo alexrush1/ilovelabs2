@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class Define extends Operations{
     private final static Logger log = Logger.getLogger(Define.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException, ArgsException {
         try {
             double value = Double.parseDouble(args[1]);

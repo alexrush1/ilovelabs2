@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class Push extends Operations{
     public static Logger log = Logger.getLogger(Push.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException, ArgsException {
         if (args.length > 1){
             //System.out.println("push: extra argument noticed");

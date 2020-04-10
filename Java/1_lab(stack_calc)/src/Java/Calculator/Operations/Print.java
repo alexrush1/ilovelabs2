@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 public class Print extends Operations{
     public static Logger log = Logger.getLogger(Add.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException {
         if (context.getStackSize() < 1){
             //System.out.println("print: not enough items on stack");

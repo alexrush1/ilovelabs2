@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class Minus extends Operations{
     public static Logger log = Logger.getLogger(Add.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException, ArgsException {
         if (context.getStackSize() < 2){
             throw new StackException("minus: not enough items on the stack");

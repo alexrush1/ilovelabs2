@@ -14,9 +14,8 @@ public class Calculator {
     private static final Logger log = Logger.getLogger(Calculator.class.getName());
     ExecContext context = new ExecContext();
 
-    public void calculate(String inFileName) throws IOException {
-        log.log(Level.FINE,"Enter calculator.calculate({0})", inFileName);
-        Scanner reader = this.createScanner(inFileName);
+    public void calculate(Scanner reader) throws IOException {
+        log.log(Level.FINE,"Enter calculator.calculate()");
         while (reader.hasNext()) {
             String line = reader.nextLine();
             if (!line.equals("EXIT")) {
@@ -54,13 +53,4 @@ public class Calculator {
         }
     }
 
-    private Scanner createScanner(String inFileName) throws IOException {
-        if (inFileName == null) {
-            log.log(Level.FINE,"Create reader from System.in");
-            return new Scanner(System.in);
-        } else {
-            log.log(Level.FINE,"Create reader from {0}.", inFileName);
-            return new Scanner(Paths.get("src/Java/Calculator" + inFileName));
-        }
-    }
 }

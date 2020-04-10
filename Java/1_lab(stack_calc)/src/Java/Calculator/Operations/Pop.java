@@ -10,7 +10,6 @@ import java.util.logging.Logger;
 public class Pop extends Operations{
     public static Logger log = Logger.getLogger(Pop.class.getName());
 
-    @Override
     protected void exceptionChecker(ExecContext context, String args[]) throws StackException, OFBException, ArgsException {
         if (args.length != 0){
             //System.out.println("pop: extra argument noticed");
