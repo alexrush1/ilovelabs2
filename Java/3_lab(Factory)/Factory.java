@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Factory {
     //private engineSupplier;
@@ -12,6 +13,8 @@ public class Factory {
     private Storage<Body> BodyStorage;
     private Storage<Auto> AutoStorage;
 
+
+    private ArrayList<Creator<Accessory>> accessorySuppliers;
     private ThreadPoolExecutor workers;
     private final ArrayList<Creator<? extends Detail>> suppliers = new ArrayList<>();
     private final ArrayList<Dealer> dealers = new ArrayList<>();
@@ -37,6 +40,7 @@ public class Factory {
         int StorageAutoSize = Integer.parseInt(config.getProperty("StorageAutoSize"));
         int WorkersCount = Integer.parseInt(config.getProperty("Workers"));
         int DealersCount = Integer.parseInt(config.getProperty("Dealers"));
+        int AccessorySuppliers = Integer.parseInt(config.getProperty("AccessorySuppliers"));
 
         EngineStorage = new Storage<>(StorageEngineSize);
         AccessoryStorage = new Storage<>(StorageBodySize);
@@ -50,6 +54,11 @@ public class Factory {
         suppliers.add(new Creator<Body>(1000, BodyStorage, Body.class));
         suppliers.add(new Creator<Engine>(1000, EngineStorage, Engine.class));
         suppliers.add(new Creator<Accessory>(1000, AccessoryStorage, Accessory.class));
+
+        accessorySuppliers = new ArrayList<Creator<Accessory>>();
+        for(int i = 0; i < AccessorySuppliers; i++) {
+            accessorySuppliers.add(new Creator<Accessory>(1000,AccessoryStorage, Accessory.class));
+        }
 
         for (int i = 0; i < DealersCount; i++) {
             dealers.add(new Dealer(5000, AutoStorage));
@@ -66,14 +75,17 @@ public class Factory {
         }
     }
 
-    public void stop() {
-        for (Creator<? extends Detail> Creator : suppliers) {
-            Creator.interrupt();
+    public void stop() throws InterruptedException {
+        for(Creator<Accessory> s : accessorySuppliers) {
+            s.interrupt();
+            s.join();
         }
-        for (Dealer dealer : dealers) {
-            dealer.interrupt();
+        for(Dealer d : dealers) {
+            d.interrupt();
+            d.join();
         }
-        workers.shutdown();
+        workers.shutdownNow();
+        workers.awaitTermination(60, TimeUnit.SECONDS);
     }
 
 }

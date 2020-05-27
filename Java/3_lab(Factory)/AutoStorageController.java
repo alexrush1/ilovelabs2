@@ -37,10 +37,11 @@ public class AutoStorageController implements Observer {
                 Engine motor = EngineStorage.get();
                 Accessory accessory = AccessoryStorage.get();
 
-                Auto auto = new Auto(body.getID(), motor.getID(), accessory.getID());
+                Auto auto = new Auto(body, motor, accessory);
                 AutoStorage.add(auto);
                 System.out.println("Auto created! ID = " + auto.getID() + " (EngineID = " + auto.getEngineID() +
                         "; BodyID = " + auto.getBodyID() + "; AccessoryID = " + auto.getAccessoryID() + ")");
+                Thread.sleep(1000);
             } catch (InterruptedException ex){
                 System.out.println(("Thread was interrupted"));
             }

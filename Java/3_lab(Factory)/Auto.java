@@ -1,15 +1,15 @@
-public class Auto {
+public class Auto implements Detail {
     private int id;
     private int EngineID;
     private int AccessoryID;
     private int BodyID;
     static int count = 0;
 
-    public Auto(int EngineID, int AccessoryID, int BodyID) {
+    public Auto(Body body, Engine engine, Accessory accessory) {
         id = count++;
-        this.EngineID = EngineID;
-        this.AccessoryID = AccessoryID;
-        this.BodyID = BodyID;
+        this.EngineID = engine.getID();
+        this.AccessoryID = accessory.getID();
+        this.BodyID = body.getID();
     }
 
     public int getID() { return id;}
